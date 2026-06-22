@@ -27,6 +27,9 @@ execute end-to-end. Mirrored as GitHub issues (see the labels `phase:*`,
 branch from `dev`; `main` is only updated by promoting `dev`. See
 `CONTRIBUTING.md`.
 
+> **GitHub issues:** filed as #2–#24, sequential with this index (P0-1 = #2,
+> P0-2 = #3, … P3-7 = #24). Labels: `phase:P0..P3`, `type:quality|infra|dx|feature`.
+
 ## Dependency-ordered index
 
 | ID | Title | Phase | Depends on | Type | ADR |
