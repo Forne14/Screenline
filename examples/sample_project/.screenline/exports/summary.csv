@@ -1,0 +1,5 @@
+state_id,label,kind,occurrences,recordings,total_seconds,first_seen,screenshot
+state_0001,state_0001,screen,2,2,5.0,00:00:00,.screenline/screenshots/state_0001.png
+state_0002,state_0002,screen,1,1,2.0,00:00:04,.screenline/screenshots/state_0002.png
+state_0003,state_0003,scroll,1,1,7.0,00:00:07,.screenline/stitched/state_0003.png
+state_0004,state_0004,screen,2,2,4.0,00:00:03,.screenline/screenshots/state_0004.png

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "screenline"
+version = "0.1.0"
+description = "Turn screen recordings into a structured visual timeline and project knowledge base for LLMs."
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.10"
+authors = [{ name = "Screenline contributors" }]
+keywords = ["screen-recording", "computer-vision", "documentation", "cli", "video", "ux"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+
+# Core dependencies are intentionally light so Screenline installs everywhere.
+# ffmpeg is a *system* dependency (probed at runtime), not a Python package.
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python-headless>=4.8",
+    "pillow>=10.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+# Higher-quality semantic embeddings. Heavy (pulls torch) — opt in explicitly.
+clip = ["open_clip_torch>=2.20", "torch>=2.0"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+screenline = "screenline.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/screenline/screenline"
+Issues = "https://github.com/screenline/screenline/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/screenline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

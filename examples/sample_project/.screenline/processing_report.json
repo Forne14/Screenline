@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-06-22T09:11:36Z",
+  "project": "sample_project",
+  "config": {
+    "sample_fps": 1.0,
+    "embedder": "default",
+    "cut_distance": 0.18,
+    "sustain_frames": 2,
+    "min_state_seconds": 1.5,
+    "merge_distance": 0.14,
+    "scroll_min_shift_px": 6.0,
+    "scroll_max_horizontal_px": 4.0,
+    "scroll_min_response": 0.5,
+    "scroll_min_run": 2,
+    "scroll_min_embedding_change": 0.05,
+    "stitch_max_height_px": 20000
+  },
+  "totals": {
+    "recordings_processed": 2,
+    "frames_sampled": 24,
+    "segments": 6,
+    "states": 4,
+    "scroll_states": 1,
+    "transitions": 4,
+    "dedup_ratio": 0.333
+  },
+  "recordings": [
+    {
+      "id": "rec_01",
+      "frames_sampled": 18,
+      "segments": 4
+    },
+    {
+      "id": "rec_02",
+      "frames_sampled": 6,
+      "segments": 2
+    }
+  ],
+  "warnings": [],
+  "elapsed_seconds": 3.07
+}

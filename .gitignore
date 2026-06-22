@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# Screenline project artifacts (the .screenline/ dir is generated)
+# Keep the example project's committed output, ignore the regenerable frame cache
+# at any depth (pattern must not be anchored to repo root).
+**/.screenline/cache/
+
+# OS
+.DS_Store
+
+# Media dropped in during local testing
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+*.m4v
+!examples/**/*.mp4

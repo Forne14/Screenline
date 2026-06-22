@@ -1,0 +1,240 @@
+{
+  "project": "sample_project",
+  "schema_version": "1.0",
+  "created_at": "2026-06-22T09:11:32Z",
+  "updated_at": "2026-06-22T09:11:36Z",
+  "config": {
+    "sample_fps": 1.0,
+    "embedder": "default",
+    "cut_distance": 0.18,
+    "sustain_frames": 2,
+    "min_state_seconds": 1.5,
+    "merge_distance": 0.14,
+    "scroll_min_shift_px": 6.0,
+    "scroll_max_horizontal_px": 4.0,
+    "scroll_min_response": 0.5,
+    "scroll_min_run": 2,
+    "scroll_min_embedding_change": 0.05,
+    "stitch_max_height_px": 20000
+  },
+  "recordings": [
+    {
+      "id": "rec_01",
+      "filename": "meeting_01.mp4",
+      "path": "meeting_01.mp4",
+      "added_at": "2026-06-22T09:11:32Z",
+      "status": "processed",
+      "metadata": {
+        "duration": 18.0,
+        "fps": 30.0,
+        "width": 1280,
+        "height": 720,
+        "codec": "h264"
+      },
+      "transcript_id": "tr_01",
+      "error": null
+    },
+    {
+      "id": "rec_02",
+      "filename": "meeting_02.mp4",
+      "path": "meeting_02.mp4",
+      "added_at": "2026-06-22T09:11:33Z",
+      "status": "processed",
+      "metadata": {
+        "duration": 6.0,
+        "fps": 30.0,
+        "width": 1280,
+        "height": 720,
+        "codec": "h264"
+      },
+      "transcript_id": null,
+      "error": null
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "tr_01",
+      "filename": "transcript.md",
+      "path": "transcript.md",
+      "format": "md",
+      "bytes": 68,
+      "recording_id": "rec_01"
+    }
+  ],
+  "states": [
+    {
+      "id": "state_0001",
+      "label": "state_0001",
+      "representative_screenshot": ".screenline/screenshots/state_0001.png",
+      "kind": "screen",
+      "stitched_screenshot": null,
+      "occurrences": [
+        {
+          "recording_id": "rec_01",
+          "start": 0.0,
+          "end": 3.0,
+          "start_tc": "00:00:00",
+          "end_tc": "00:00:03",
+          "representative_timestamp": 0.0,
+          "confidence": 1.0
+        },
+        {
+          "recording_id": "rec_02",
+          "start": 0.0,
+          "end": 2.0,
+          "start_tc": "00:00:00",
+          "end_tc": "00:00:02",
+          "representative_timestamp": 0.0,
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "state_0002",
+      "label": "state_0002",
+      "representative_screenshot": ".screenline/screenshots/state_0002.png",
+      "kind": "screen",
+      "stitched_screenshot": null,
+      "occurrences": [
+        {
+          "recording_id": "rec_01",
+          "start": 4.0,
+          "end": 6.0,
+          "start_tc": "00:00:04",
+          "end_tc": "00:00:06",
+          "representative_timestamp": 6.0,
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "state_0003",
+      "label": "state_0003",
+      "representative_screenshot": ".screenline/screenshots/state_0003.png",
+      "kind": "scroll",
+      "stitched_screenshot": ".screenline/stitched/state_0003.png",
+      "occurrences": [
+        {
+          "recording_id": "rec_01",
+          "start": 7.0,
+          "end": 14.0,
+          "start_tc": "00:00:07",
+          "end_tc": "00:00:14",
+          "representative_timestamp": 11.0,
+          "confidence": 0.655
+        }
+      ]
+    },
+    {
+      "id": "state_0004",
+      "label": "state_0004",
+      "representative_screenshot": ".screenline/screenshots/state_0004.png",
+      "kind": "screen",
+      "stitched_screenshot": null,
+      "occurrences": [
+        {
+          "recording_id": "rec_01",
+          "start": 15.0,
+          "end": 17.0,
+          "start_tc": "00:00:15",
+          "end_tc": "00:00:17",
+          "representative_timestamp": 17.0,
+          "confidence": 1.0
+        },
+        {
+          "recording_id": "rec_02",
+          "start": 3.0,
+          "end": 5.0,
+          "start_tc": "00:00:03",
+          "end_tc": "00:00:05",
+          "representative_timestamp": 5.0,
+          "confidence": 1.0
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "shot_0001",
+      "state_id": "state_0001",
+      "path": ".screenline/screenshots/state_0001.png",
+      "type": "state",
+      "recording_id": "rec_02",
+      "timestamp": 0.0,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": "shot_0002",
+      "state_id": "state_0002",
+      "path": ".screenline/screenshots/state_0002.png",
+      "type": "state",
+      "recording_id": "rec_01",
+      "timestamp": 6.0,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": "shot_0003",
+      "state_id": "state_0003",
+      "path": ".screenline/screenshots/state_0003.png",
+      "type": "state",
+      "recording_id": "rec_01",
+      "timestamp": 11.0,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": "shot_0004",
+      "state_id": "state_0004",
+      "path": ".screenline/screenshots/state_0004.png",
+      "type": "state",
+      "recording_id": "rec_01",
+      "timestamp": 17.0,
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "transitions": [
+    {
+      "id": "trans_0001",
+      "recording_id": "rec_01",
+      "from_state": "state_0001",
+      "to_state": "state_0002",
+      "at": 4.0,
+      "at_tc": "00:00:04",
+      "kind": "navigation",
+      "confidence": 0.7
+    },
+    {
+      "id": "trans_0002",
+      "recording_id": "rec_01",
+      "from_state": "state_0002",
+      "to_state": "state_0003",
+      "at": 7.0,
+      "at_tc": "00:00:07",
+      "kind": "navigation",
+      "confidence": 0.7
+    },
+    {
+      "id": "trans_0003",
+      "recording_id": "rec_01",
+      "from_state": "state_0003",
+      "to_state": "state_0004",
+      "at": 15.0,
+      "at_tc": "00:00:15",
+      "kind": "navigation",
+      "confidence": 0.7
+    },
+    {
+      "id": "trans_0004",
+      "recording_id": "rec_02",
+      "from_state": "state_0001",
+      "to_state": "state_0004",
+      "at": 3.0,
+      "at_tc": "00:00:03",
+      "kind": "navigation",
+      "confidence": 0.7
+    }
+  ]
+}
