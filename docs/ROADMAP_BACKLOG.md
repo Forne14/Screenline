@@ -27,8 +27,10 @@ execute end-to-end. Mirrored as GitHub issues (see the labels `phase:*`,
 branch from `dev`; `main` is only updated by promoting `dev`. See
 `CONTRIBUTING.md`.
 
-> **GitHub issues:** filed as #2–#24, sequential with this index (P0-1 = #2,
-> P0-2 = #3, … P3-7 = #24). Labels: `phase:P0..P3`, `type:quality|infra|dx|feature`.
+> **GitHub issues:** original backlog filed as #2–#24 (P0-1 = #2 … P3-7 = #24).
+> Dogfood follow-ups from the [reevv huddle eval](eval/2026-06-22-reevv-huddle.md):
+> P1-7 = #25, P1-8 = #26, P1-9 = #27, P1-10 = #28, P0-7 = #29.
+> Labels: `phase:P0..P3`, `type:quality|infra|dx|feature`.
 
 ## Dependency-ordered index
 
@@ -40,12 +42,17 @@ branch from `dev`; `main` is only updated by promoting `dev`. See
 | P0-4 | Release workflow (tag → GitHub Release → PyPI) | P0 | P0-2 | infra | — |
 | P0-5 | Expand test coverage (segmentation/transitions/clustering) | P0 | — | infra | 0006 |
 | P0-6 | Progress reporting for long videos | P0 | — | dx | — |
+| P0-7 | Faster ingest: downscale / transcode working copy | P0 | — | infra | — |
 | P1-1 | Fix sticky-footer duplication in stitching | P1 | P0-1 | quality | 0004 |
 | P1-2 | Robust fast-scroll: multi-scale / adaptive sampling | P1 | P0-1 | quality | 0003 |
 | P1-3 | Embedding + shift cache for resumable builds | P1 | — | quality | 0001 |
 | P1-4 | Validate/upgrade modal & tab transition classification | P1 | P0-1,P0-5 | quality | — |
 | P1-5 | CLIP backend evaluation harness + benchmark | P1 | P0-1 | quality | 0002 |
 | P1-6 | Confidence calibration for occurrences & transitions | P1 | P0-5 | quality | 0006 |
+| P1-7 | Region-of-interest / `--crop` flag | P1 | P0-1 | dx | — |
+| P1-8 | Ignore-region masks for overlay chrome / camera PiP | P1 | P0-1 | quality | — |
+| P1-9 | Continuous pan/zoom (canvas) over-segmentation | P1 | P0-1 | quality | — |
+| P1-10 | Sticky/floating element duplication in stitches | P1 | P1-1 | quality | 0004 |
 | P2-1 | Config file support (`screenline.toml`) | P2 | — | dx | 0001 |
 | P2-2 | JSON Schema for the manifest + `validate` command | P2 | — | dx | 0001 |
 | P2-3 | HTML report export (state gallery + timeline) | P2 | — | dx | 0001 |

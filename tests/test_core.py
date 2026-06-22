@@ -92,6 +92,23 @@ def test_estimate_shift_recovers_known_scroll():
     assert est.response > 0.8
 
 
+def test_estimate_shift_downscales_large_frames_and_returns_fullres():
+    # Regression for the dogfood perf fix: at phone/desktop resolutions the
+    # estimator must downscale internally yet report the shift in ORIGINAL
+    # pixels. A naive full-res matchTemplate here would be punishingly slow.
+    import time
+
+    rng = np.random.default_rng(7)
+    page = rng.integers(0, 255, size=(2600, 2400), dtype=np.uint8)
+    a = page[200:1400, :]
+    b = page[320:1520, :]  # scrolled down by 120 full-res px
+    start = time.time()
+    est = estimate_shift(a, b, max_dim=720)
+    assert time.time() - start < 2.0  # downscaled path is fast
+    assert abs(est.dy - 120) <= 6  # reported in full-resolution pixels
+    assert est.response > 0.7
+
+
 def test_stitch_vertical_produces_taller_image():
     rng = np.random.default_rng(1)
     page = rng.integers(0, 255, size=(600, 200, 3), dtype=np.uint8)
