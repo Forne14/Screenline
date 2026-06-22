@@ -29,8 +29,8 @@ branch from `dev`; `main` is only updated by promoting `dev`. See
 
 > **GitHub issues:** original backlog filed as #2–#24 (P0-1 = #2 … P3-7 = #24).
 > Dogfood follow-ups from the [reevv huddle eval](eval/2026-06-22-reevv-huddle.md):
-> P1-7 = #25, P1-8 = #26, P1-9 = #27, P1-10 = #28, P0-7 = #29.
-> Labels: `phase:P0..P3`, `type:quality|infra|dx|feature`.
+> P1-7 = #25, P1-8 = #26, P1-9 = #27, P1-10 = #28, P0-7 = #29, P0-8 = #31.
+> Labels: `phase:P0..P3`, `type:quality|infra|dx|feature|bug`.
 
 ## Dependency-ordered index
 
@@ -43,6 +43,7 @@ branch from `dev`; `main` is only updated by promoting `dev`. See
 | P0-5 | Expand test coverage (segmentation/transitions/clustering) | P0 | — | infra | 0006 |
 | P0-6 | Progress reporting for long videos | P0 | — | dx | — |
 | P0-7 | Faster ingest: downscale / transcode working copy | P0 | — | infra | — |
+| P0-8 | Frame cache ignores `--fps` change → wrong timestamps (bug) | P0 | — | bug | — |
 | P1-1 | Fix sticky-footer duplication in stitching | P1 | P0-1 | quality | 0004 |
 | P1-2 | Robust fast-scroll: multi-scale / adaptive sampling | P1 | P0-1 | quality | 0003 |
 | P1-3 | Embedding + shift cache for resumable builds | P1 | — | quality | 0001 |
