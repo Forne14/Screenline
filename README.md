@@ -185,6 +185,26 @@ Measured on the bundled example (2 recordings, 24 sampled frames):
 | False states from cursor + caret-blink noise | **0** |
 | Build time | ~3 s |
 
+### Real-world run
+
+A first dogfood on a **~31-min Slack-huddle screen-share** (2 iPhone recordings,
+2556×1180, of an app walkthrough — anonymised; full write-up in
+[`docs/eval/`](docs/eval/2026-06-22-huddle-walkthrough.md)):
+
+| Metric | Result |
+| ------ | ------ |
+| Sampled frames → states | 1,850 → **71** |
+| Stitched scroll captures | 8 (incl. a long content page rebuilt from one scroll) |
+| False states from cursor / caret / clock | **0** |
+| Build time — full-res HEVC | 842 s |
+| Build time — downscaled H264 | **145 s** (5.8× faster) |
+
+> **Honest caveat.** Discrete app screens and scrolling pages worked well, but
+> continuous **pan/zoom of a canvas** (e.g. a whiteboard) currently
+> *over-segments* — those 71 states are more than a curated set should be. Tracked
+> in [#27](https://github.com/Forne14/Screenline/issues/27); see the eval for the
+> full analysis (cropping, re-tuning, transcode speedups).
+
 ## 🎛️ Tuning
 
 Defaults target 1080p recordings at 1 FPS. Knobs are also stored in the manifest's
@@ -199,6 +219,12 @@ screenline build --fps 2 --cut-distance 0.15 --embedder clip
 | `--fps`          | Sampling rate. Higher = finer, slower. Raise for fast/scroll-heavy content. |
 | `--cut-distance` | Boundary sensitivity. Lower = more states.          |
 | `--embedder`     | `default` (zero-ML) or `clip` (semantic, heavier).  |
+
+> ⚠️ **Changing `--fps`?** Delete `.screenline/cache/` first. The frame cache is
+> currently reused on rebuild without checking the sample rate, so a changed
+> `--fps` would otherwise reuse stale frames with wrong timestamps
+> ([#31](https://github.com/Forne14/Screenline/issues/31)). Changing
+> `--cut-distance` / `--embedder` between builds is safe.
 
 ## 📁 Output structure
 
