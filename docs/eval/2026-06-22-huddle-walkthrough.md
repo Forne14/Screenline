@@ -1,21 +1,21 @@
-# Eval — Slack-huddle screen recordings (reevv-realty), 2026-06-22
+# Eval — Slack-huddle screen recordings, 2026-06-22
 
 First dogfood pass (issue **#2 / P0-1**) on *real* recordings, not synthetic
-fixtures. Two iPhone screen recordings of a Slack **huddle** where a teammate
-("Josh") screen-shared his Mac while walking through the reevv-realty concept.
+fixtures. Two iPhone screen recordings of a Slack **huddle** in which a teammate
+screen-shared a Mac while walking through an early-stage product.
 
-> **Confidentiality:** the recordings show reevv-realty's product. No frames are
-> committed to this (public) repo — only aggregate metrics and findings. The
-> actual artifacts live in the private reevv project dir.
+> **Confidentiality:** the recordings show a third party's unreleased product. No
+> frames and no product specifics are recorded here — only aggregate metrics and
+> Screenline behaviour. The raw artifacts stay in a private, non-tracked folder.
 
 ## Inputs
 
-| | demo-1 | demo-2 |
+| | clip A | clip B |
 |---|---|---|
 | Encoded | 1180×2556 HEVC, rotation→ **2556×1180 landscape** | same |
 | Duration | ~18.9 min | ~11.9 min |
-| Shared content | Excalidraw architecture diagram (panned/zoomed) | a text document (read top-to-bottom) |
-| Chrome | iPhone notch + recording dot; Slack huddle header ("Josh / live screen sharing", "Leave"); **auto-hiding huddle control bar**; macOS dock + Chrome tab bar inside the share | same, **plus a live participant-camera thumbnail** that moves every frame |
+| Shared content | a whiteboard / diagramming canvas (panned & zoomed) | a long text document (read top-to-bottom) |
+| Chrome | iPhone notch + recording dot; Slack huddle header + "Leave"; **auto-hiding huddle control bar**; macOS dock + browser tab bar inside the share | same, **plus a live participant-camera thumbnail** that moves every frame |
 
 A deliberately hard case: the share **fills the whole frame** and the Slack/iOS
 chrome is **overlaid on content**, not in clean borders.
@@ -23,7 +23,7 @@ chrome is **overlaid on content**, not in clean borders.
 ## Method
 
 ```bash
-screenline init . && screenline add demo-1 && screenline add demo-2
+screenline init . && screenline add clipA && screenline add clipB
 screenline build --cut-distance 0.11    # lower than default 0.18 for shared chrome
 ```
 
@@ -50,13 +50,12 @@ Target for ~30 min of video would be roughly 15–45 screenshots. All passes
 ## Findings
 
 1. **It works — and the useful output is real.** The recording has two phases: a
-   dark **Excalidraw diagram** discussion and a walkthrough of the **actual
-   reevv-realty app screens** (light UI). The app-screen states were segmented
-   cleanly and are genuinely useful; scroll **stitching reconstructed a full
-   listing-detail page** (unit specs, amenities, day/night views) that's readable
-   end-to-end. Mouse movement / caret / the ticking clock created no states.
+   diagram discussion and a walkthrough of **actual app screens**. The app-screen
+   states were segmented cleanly and are genuinely useful; scroll **stitching
+   reconstructed a long content-detail page** that reads end-to-end. Mouse
+   movement / caret / the ticking clock created no states.
 
-2. **Continuous pan/zoom over-segments badly.** The Excalidraw walkthrough drove
+2. **Continuous pan/zoom over-segments badly.** The whiteboard walkthrough drove
    ~83–116 of the segments — every pan/zoom view is "meaningfully different", so
    the discrete-screen model explodes. This is the single biggest quality issue
    here. → **#27 (P1-9)**.
@@ -77,29 +76,31 @@ Target for ~30 min of video would be roughly 15–45 screenshots. All passes
    **5.8× faster** than full-res **HEVC** (145 s vs 842 s) with no loss of useful
    states — HEVC software decode dominated Pass 1. → **#29 (P0-7)**.
 
-5. **Sticky/floating elements duplicate in stitches.** A floating "AI Guide"
-   button was captured 3× down the stitched listing page. → **#28 (P1-10)**,
-   extends #8.
+5. **Sticky/floating elements duplicate in stitches.** A floating on-page button
+   was captured 3× down a stitched page. → **#28 (P1-10)**, extends #8.
 
 6. **Rotation handled correctly.** Both clips carried a 90° display-matrix;
    ffmpeg auto-rotated to landscape consistently in probe, sampling and output —
    no manual `-noautorotate` needed.
 
+7. **Stale frame cache on `--fps` change.** Rebuilding with a different `--fps`
+   reuses the old frames with wrong timestamps. → **#31 (P0-8)**; clear
+   `.screenline/cache/` until fixed.
+
 ## Actions taken / filed
 
-- **Code (this PR, branch `quality/p0-1-dogfood`):** fixed `estimate_shift` to
-  downscale frames internally (longest side ≤ 720) and report shifts in
-  full-resolution pixels. Full-res `matchTemplate` on 2556×1180 frames was
-  prohibitively slow; without this the build would not finish in reasonable time.
-  Added a regression test (`test_estimate_shift_downscales_large_frames_and_returns_fullres`).
-- **Issues filed:** #25 (P1-7 crop flag), #26 (P1-8 ignore-region masks),
-  #27 (P1-9 pan/zoom over-segmentation), #28 (P1-10 sticky/floating stitch
-  dedup), #29 (P0-7 faster ingest via downscale/transcode).
+- **Code (PR #30):** fixed `estimate_shift` to downscale frames internally
+  (longest side ≤ 720) and report shifts in full-resolution pixels. Full-res
+  `matchTemplate` on 2556×1180 frames was prohibitively slow; without this the
+  build would not finish in reasonable time. Added a regression test.
+- **Issues filed:** #25 (crop flag), #26 (ignore-region masks), #27 (pan/zoom
+  over-segmentation), #28 (sticky/floating stitch dedup), #29 (faster ingest),
+  #31 (frame-cache `--fps` staleness).
 
 ## Recommendation for users today
 
 For huddle/whiteboard recordings, until #25–#29 land: pre-transcode to a
 downscaled H264 (≈6× faster), expect over-segmentation on panned canvases, and
 treat the **app-screen** states + **stitched pages** as the high-value output.
-For a quick clean run, raise `--cut-distance` (0.2+) and `--fps` only if scrolls
-are fast.
+For a quick clean run, raise `--cut-distance` (0.2+); raise `--fps` only if
+scrolls are fast (and clear the cache first — #31).

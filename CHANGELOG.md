@@ -11,7 +11,7 @@ All notable changes to this project are documented here. The format is based on
   reports shifts in full-resolution pixels. Full-res template matching on
   phone/desktop-resolution frames (e.g. 2556×1180) was prohibitively slow;
   surfaced by the first real-recording dogfood (see
-  `docs/eval/2026-06-22-reevv-huddle.md`).
+  `docs/eval/2026-06-22-huddle-walkthrough.md`).
 
 ### Added
 - `docs/eval/` — dogfood evaluation reports on real recordings.

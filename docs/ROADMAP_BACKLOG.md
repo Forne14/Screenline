@@ -28,7 +28,7 @@ branch from `dev`; `main` is only updated by promoting `dev`. See
 `CONTRIBUTING.md`.
 
 > **GitHub issues:** original backlog filed as #2–#24 (P0-1 = #2 … P3-7 = #24).
-> Dogfood follow-ups from the [reevv huddle eval](eval/2026-06-22-reevv-huddle.md):
+> Dogfood follow-ups from the [huddle walkthrough eval](eval/2026-06-22-huddle-walkthrough.md):
 > P1-7 = #25, P1-8 = #26, P1-9 = #27, P1-10 = #28, P0-7 = #29, P0-8 = #31.
 > Labels: `phase:P0..P3`, `type:quality|infra|dx|feature|bug`.
 
