@@ -200,6 +200,12 @@ screenline build --fps 2 --cut-distance 0.15 --embedder clip
 | `--cut-distance` | Boundary sensitivity. Lower = more states.          |
 | `--embedder`     | `default` (zero-ML) or `clip` (semantic, heavier).  |
 
+> ⚠️ **Changing `--fps`?** Delete `.screenline/cache/` first. The frame cache is
+> currently reused on rebuild without checking the sample rate, so a changed
+> `--fps` would otherwise reuse stale frames with wrong timestamps
+> ([#31](https://github.com/Forne14/Screenline/issues/31)). Changing
+> `--cut-distance` / `--embedder` between builds is safe.
+
 ## 📁 Output structure
 
 ```
