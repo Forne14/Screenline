@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and the project follows
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- `estimate_shift` now downscales frames internally (longest side ≤ 720px) and
+  reports shifts in full-resolution pixels. Full-res template matching on
+  phone/desktop-resolution frames (e.g. 2556×1180) was prohibitively slow;
+  surfaced by the first real-recording dogfood (see
+  `docs/eval/2026-06-22-reevv-huddle.md`).
+
+### Added
+- `docs/eval/` — dogfood evaluation reports on real recordings.
+
 ## [0.1.0] — 2026-06-22
 
 Initial public release — the MVP visual timeline extraction engine.

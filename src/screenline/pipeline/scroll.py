@@ -37,7 +37,7 @@ class ShiftEstimate:
     response: float  # phase-correlation peak confidence in [0, 1]
 
 
-def estimate_shift(prev_gray: np.ndarray, cur_gray: np.ndarray) -> ShiftEstimate:
+def estimate_shift(prev_gray: np.ndarray, cur_gray: np.ndarray, max_dim: int = 720) -> ShiftEstimate:
     """Estimate translation of `cur` relative to `prev` (positive dy = scroll down).
 
     We locate a horizontal band taken from the *middle* of `cur` inside `prev`
@@ -46,10 +46,22 @@ def estimate_shift(prev_gray: np.ndarray, cur_gray: np.ndarray) -> ShiftEstimate
     inter-frame shifts) and yields a clean confidence peak. The band is taken
     from the centre to avoid sticky headers/footers and corner cursor activity.
 
+    Frames are downscaled so the longest side is <= `max_dim` before matching
+    (template search is O(image x template) — at phone/desktop resolutions full
+    res is needlessly slow). The estimated shift is scaled back to original
+    pixels, so callers always get full-resolution offsets.
+
     dy > 0 means content moved up between prev->cur, i.e. the user scrolled down.
     """
     if prev_gray.shape != cur_gray.shape or prev_gray.size == 0:
         return ShiftEstimate(0.0, 0.0, 0.0)
+
+    h0, w0 = cur_gray.shape[:2]
+    scale = min(1.0, max_dim / max(h0, w0))
+    if scale < 1.0:
+        size = (max(1, int(w0 * scale)), max(1, int(h0 * scale)))
+        prev_gray = cv2.resize(prev_gray, size, interpolation=cv2.INTER_AREA)
+        cur_gray = cv2.resize(cur_gray, size, interpolation=cv2.INTER_AREA)
 
     h, w = cur_gray.shape[:2]
     bh = max(40, int(h * 0.18))
@@ -62,7 +74,8 @@ def estimate_shift(prev_gray: np.ndarray, cur_gray: np.ndarray) -> ShiftEstimate
     res = cv2.matchTemplate(prev_gray, template, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, max_loc = cv2.minMaxLoc(res)
     mx, my = max_loc
-    return ShiftEstimate(dx=float(mx - bx0), dy=float(my - by0), response=float(max_val))
+    inv = 1.0 / scale
+    return ShiftEstimate(dx=float((mx - bx0) * inv), dy=float((my - by0) * inv), response=float(max_val))
 
 
 def is_scroll(est: ShiftEstimate, cfg: Config) -> bool:
